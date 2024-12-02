@@ -10,10 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="input.txt"/>
-    <EmbeddedResource Include="input.txt">
+    <None Update="input.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
   </ItemGroup>
 
 </Project>
