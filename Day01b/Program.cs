@@ -7,15 +7,16 @@ public static class Program
         var input = File.ReadAllLines("input.txt")
             .Select(l => l.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList()).ToList();
 
-        var leftIdSimilarityScores = input
-            .Select(ids => ids[0])
-            .GroupBy(id => id).ToDictionary(id => id.Key, _ => 0);
         var rightIdCounts = input.Select(ids => ids[1]).GroupBy(id => id).ToDictionary(g => g.Key, g => g.Count());
 
-        foreach (var (id, _) in leftIdSimilarityScores)
-            leftIdSimilarityScores[id] = rightIdCounts.GetValueOrDefault(id, 0);
+        var similarityScore = 0;
 
-        var similarityScore = leftIdSimilarityScores.Sum(kvp => kvp.Key * kvp.Value);
+        foreach (var idPair in input)
+        {
+            var leftId = idPair[0];
+            var count = rightIdCounts.GetValueOrDefault(leftId, 0);
+            similarityScore += leftId * count;
+        }
 
         Console.WriteLine(similarityScore);
     }
