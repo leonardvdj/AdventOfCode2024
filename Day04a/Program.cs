@@ -21,16 +21,18 @@ public static class Program
             for (var dirY = -1; dirY <= 1; dirY++)
             {
                 if (dirX == 0 && dirY == 0) continue;
-                for (var step = 0; step < target.Length; step++)
+                for (var step = 1; step < target.Length; step++)
                 {
                     var nextX = x + dirX * step;
                     var nextY = y + dirY * step;
                     if (nextX < 0 || nextX >= width || nextY < 0 || nextY >= input.Length) break;
                     var next = input[nextY][nextX];
                     if (next != target[step]) break;
-                    if (step != 3) continue;
-                    count++;
-                    break;
+                    if (step == target.Length - 1)
+                    {
+                        count++;
+                        break;
+                    }
                 }
             }
         }
