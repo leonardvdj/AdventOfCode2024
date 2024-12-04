@@ -1,11 +1,22 @@
 ﻿using System.Text.RegularExpressions;
 
-var input = string.Join(", ", File.ReadAllLines("input.txt"));
+namespace Day03a;
 
-var sum = Regex.Matches(input, @"mul\((\d+),(\d+)\)").Select(m =>
+public static partial class Program
 {
-    var nums = m.Groups.Values.Skip(1).Select(g => int.Parse(g.Value)).ToList();
-    return nums[0] * nums[1];
-}).Sum();
+    public static void Main()
+    {
+        var input = string.Join(", ", File.ReadAllLines("input.txt"));
 
-Console.WriteLine(sum);
+        var sum = MulRegex().Matches(input).Select(m =>
+        {
+            var nums = m.Groups.Values.Skip(1).Select(g => int.Parse(g.Value)).ToList();
+            return nums[0] * nums[1];
+        }).Sum();
+
+        Console.WriteLine(sum);
+    }
+
+    [GeneratedRegex(@"mul\((\d+),(\d+)\)")]
+    private static partial Regex MulRegex();
+}
